@@ -9,8 +9,8 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Adam Sumner"]
   spec.email         = ["adam@gojilabs.com"]
 
-  spec.summary       = %q{Set `GOJI_ENV` variable to desired project environment (e.g. test, staging, production, development).}
-  spec.description   = %q{We needed a second dimension to handle the situations where staging needs to be treated differently from production and where testing needs to be treated differently from development. `RAILS_ENV` and `RACK_ENV` are too general. In most cases staging and production should behave identically, but for those situations where they do not (e.g. database seeding, web scraping/API scraping), set the `GOJI_ENV` variable and use `Env.staging?`.}
+  spec.summary       = %q{Set `APP_ENV` variable to desired project environment (e.g. test, staging, production, development, demo).}
+  spec.description   = %q{We needed a second dimension to handle the situations where staging needs to be treated differently from production and where testing needs to be treated differently from development. `RAILS_ENV` and `RACK_ENV` are too general. In most cases staging and production should behave identically, but for those situations where they do not (e.g. database seeding, web scraping/API scraping), set the `APP_ENV` variable and use `Env.staging?`.}
   spec.homepage      = "http://www.gojilabs.com"
   spec.license       = "MIT"
 
@@ -27,6 +27,6 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
-  spec.add_development_dependency "bundler", "~> 1.11"
-  spec.add_development_dependency "rake", "~> 10.0"
+  spec.add_development_dependency "bundler", "~> 1.14"
+  spec.add_development_dependency "rake", "~> 12.0"
 end
