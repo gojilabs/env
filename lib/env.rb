@@ -7,16 +7,28 @@ module Env
   DEMO        = 'demo'.freeze
   TEST        = 'test'.freeze
 
-  def self.to_s
-    ENV.fetch('APP_ENV') do
-      ENV.fetch('GOJI_ENV') do # used internally by our legacy apps
-        ENV.fetch('RAILS_ENV') do
-          ENV.fetch('RACK_ENV') do
-            DEVELOPMENT
-          end
-        end
+  def self.primary
+    ENV.fetch('RAILS_ENV') do
+      ENV.fetch('RACK_ENV') do
+        DEVELOPMENT
       end
     end
+  end
+
+  def self.secondary
+    ENV.fetch('APP_ENV') do
+      ENV.fetch('GOJI_ENV') do # used internally by our legacy apps
+        primary
+      end
+    end
+  end
+
+  def self.to_s
+    secondary
+  end
+
+  def self.uri_prefix
+    "#{secondary}." if primary == PRODUCTION
   end
 
   def self.production?
@@ -45,7 +57,7 @@ module Env
     if method_without_question_mark && method_without_question_mark.length > 0
       to_s == method_without_question_mark
     else
-      super(method, args, block)
+      to_s.send(method, *args, &block)
     end
   end
 end
